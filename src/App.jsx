@@ -307,6 +307,7 @@ function App() {
         videoCount: parseInt(channel.statistics.videoCount || 0),
         country: country,
         customUrl: channel.snippet.customUrl || null,
+        channelUrl: channel.snippet.customUrl ? `https://www.youtube.com/${channel.snippet.customUrl}` : `https://www.youtube.com/channel/${channel.id}`,
         about: aboutText,
         email: email,
         socialHandles: extractSocialHandles(aboutText),

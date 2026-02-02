@@ -15,7 +15,7 @@ function DataTable({ channels, searchQuery, onLoadStored }) {
     setDownloading(true)
     try {
       const query = searchQuery || 'search_results'
-      
+
       switch (exportFormat) {
         case 'csv':
           exportToCSV(channels, query)
@@ -30,7 +30,7 @@ function DataTable({ channels, searchQuery, onLoadStored }) {
           alert('Invalid export format selected')
           return
       }
-      
+
       // Small delay to show success
       setTimeout(() => {
         setDownloading(false)
@@ -47,8 +47,8 @@ function DataTable({ channels, searchQuery, onLoadStored }) {
       <div className="table-header">
         <h2>Extracted Data: {channels.length.toLocaleString()} Channels</h2>
         <div className="export-controls">
-          <select 
-            value={exportFormat} 
+          <select
+            value={exportFormat}
             onChange={(e) => setExportFormat(e.target.value)}
             className="format-select"
           >
@@ -56,8 +56,8 @@ function DataTable({ channels, searchQuery, onLoadStored }) {
             <option value="json">JSON</option>
             <option value="excel">Excel</option>
           </select>
-          <button 
-            className="export-button" 
+          <button
+            className="export-button"
             onClick={handleExport}
             disabled={downloading || channels.length === 0}
             title={channels.length === 0 ? 'No data to export' : `Export ${channels.length.toLocaleString()} channels`}
@@ -73,6 +73,7 @@ function DataTable({ channels, searchQuery, onLoadStored }) {
             <tr>
               <th>#</th>
               <th>Channel Name</th>
+              <th>Channel URL</th>
               <th>Subscribers</th>
               <th>Country</th>
               <th>Email</th>
@@ -85,6 +86,7 @@ function DataTable({ channels, searchQuery, onLoadStored }) {
               <tr key={channel.id}>
                 <td>{index + 1}</td>
                 <td className="channel-name">{channel.title}</td>
+                <td><a href={channel.channelUrl} target="_blank" rel="noopener noreferrer">{channel.channelUrl}</a></td>
                 <td>{channel.subscriberCount.toLocaleString()}</td>
                 <td>{channel.country}</td>
                 <td>{channel.email || '-'}</td>

@@ -7,7 +7,7 @@ export function exportToCSV(channels, searchQuery) {
 
   // Header row with About section
   const headers = [
-    'Channel Name', 'Channel Description', 'About Section', 'Subscriber Count', 'Country', 'Email',
+    'Channel Name', 'Channel URL', 'Channel Description', 'About Section', 'Subscriber Count', 'Country', 'Email',
     'Instagram', 'Twitter/X', 'Facebook', 'LinkedIn', 'Telegram', 'Website',
     'Total Videos',
     'Video 1 Title', 'Video 1 Link', 'Video 1 Views', 'Video 1 Comment Count', 'Video 1 All Comments', 'Video 1 Topics',
@@ -34,6 +34,7 @@ export function exportToCSV(channels, searchQuery) {
     const socialHandles = channel.socialHandles || {}
     const row = [
       channel.title || '',
+      channel.channelUrl || '',
       channel.description || '',
       channel.about || '', // About section
       channel.subscriberCount || 0,
@@ -121,6 +122,7 @@ export async function exportToExcel(channels, searchQuery) {
     // Header row with About section
     excelData.push([
       'Channel Name',
+      'Channel URL',
       'Channel Description',
       'About Section',
       'Subscriber Count',
@@ -168,9 +170,10 @@ export async function exportToExcel(channels, searchQuery) {
     // Add channel data
     channels.forEach((channel) => {
       const socialHandles = channel.socialHandles || {}
-      
+
       const row = [
         channel.title || 'N/A',
+        channel.channelUrl || 'N/A',
         channel.description || 'N/A',
         channel.about || 'N/A', // About section from channel
         channel.subscriberCount || 0,
@@ -212,6 +215,7 @@ export async function exportToExcel(channels, searchQuery) {
     // Set column widths for better readability
     const colWidths = [
       { wch: 30 }, // Channel Name
+      { wch: 40 }, // Channel URL
       { wch: 50 }, // Channel Description
       { wch: 80 }, // About Section (wide for long text)
       { wch: 15 }, // Subscriber Count
@@ -267,7 +271,7 @@ export async function exportToExcel(channels, searchQuery) {
 
     // Download file
     XLSX.writeFile(wb, filename)
-    
+
     console.log(`Excel file exported successfully: ${filename}`)
   } catch (error) {
     console.error('Error exporting to Excel:', error)
